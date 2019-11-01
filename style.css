@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    ;
+}
+
+.window {
+    width: 920px;
+    height: 400px;
+    margin: 50px auto;
+    overflow: hidden;
+    box-shadow: 0 0 3px #AAAAAA;
+}
+
+.images {
+    position: relative;
+}
+
+.images>img {
+    position: absolute;
+    top: 0;
+    transition: all 1.5s;
+}
+
+.images>img.current {
+    left: 0;
+    transform: translateX(0);
+    z-index: 1;
+}
+
+.images>img.leave {
+    transform: translateX(-100%);
+    z-index: 1;
+}
+
+.images>img.enter {
+    transform: translateX(100%);
+}
