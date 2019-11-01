@@ -3,34 +3,22 @@ $('.images>img:nth-child(2)').addClass('enter')
 $('.images>img:nth-child(3)').addClass('enter')
 $('.images>img:nth-child(4)').addClass('enter')
 
-setTimeout(() => {
-    $('.images>img:nth-child(1)').removeClass('current').addClass('leave')
+let n = 1
+setInterval(() => {
+    $(`.images>img:nth-child(${x(n)})`).removeClass('current').addClass('leave') // ES6 插值
         .one('transitionend', (e) => { // one表示该监听事件(监听动画结束transitionend)只执行一次
             $(e.currentTarget).removeClass('leave').addClass('enter')
         })
-    $('.images>img:nth-child(2)').removeClass('enter').addClass('current')
+    $(`.images>img:nth-child(${x(n + 1)})`).removeClass('enter').addClass('current')
+    n += 1
 }, 3000)
 
-setTimeout(() => {
-    $('.images>img:nth-child(2)').removeClass('current').addClass('leave')
-        .one('transitionend', (e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images>img:nth-child(3)').removeClass('enter').addClass('current')
-}, 6000)
-
-setTimeout(() => {
-    $('.images>img:nth-child(3)').removeClass('current').addClass('leave')
-        .one('transitionend', (e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images>img:nth-child(4)').removeClass('enter').addClass('current')
-}, 9000)
-
-setTimeout(() => {
-    $('.images>img:nth-child(4').removeClass('current').addClass('leave')
-        .one('transitionend', (e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images>img:nth-child(1)').removeClass('enter').addClass('current')
-}, 12000)
+function x(n) {
+    if (n > 4) {
+        n = n % 4
+        if (n === 0) {
+            n = 4
+        }
+    }
+    return n // n = 1,2,3,4
+}
