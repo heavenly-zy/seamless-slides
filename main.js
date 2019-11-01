@@ -1,6 +1,6 @@
 let n
 initialize()
-setInterval(() => {
+let timer = setInterval(() => {
     makeLeave(getImage(n)) // ES6 插值
         .one('transitionend', (e) => { // one表示该监听事件(监听动画结束transitionend)只执行一次
             makeEnter($(e.currentTarget))
@@ -9,6 +9,20 @@ setInterval(() => {
     n += 1
 }, 6000)
 
+document.addEventListener('visibilitychange', (e) => { // visibilitychange事件用来判断页面是否可见
+    if (document.hidden) { // document.hidden 为 true 表示页面被隐藏，此时页面不可见
+        window.clearInterval(timer)
+    } else { // document.hidden 为 false 表示回到页面，此时页面可见
+        timer = setInterval(() => {
+            makeLeave(getImage(n)) 
+                .one('transitionend', (e) => { 
+                    makeEnter($(e.currentTarget))
+                })
+            makeCurrent(getImage(n + 1))
+            n += 1
+        }, 6000)
+    }
+})
 
 // 工具函数
 function getImage(n) {
